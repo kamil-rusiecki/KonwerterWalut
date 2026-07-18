@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Currency converter test page</title>
+    <style>
+      body {
+        max-width: 720px;
+        margin: 48px auto;
+        padding: 0 24px;
+        font: 18px/1.6 system-ui, sans-serif;
+      }
+      code { background: #eee; padding: 2px 6px; }
+    </style>
+  </head>
+  <body>
+    <h1>Currency converter test page</h1>
+    <p>Select each of the following prices separately:</p>
+    <ul>
+      <li><code>$19.99</code></li>
+      <li><code>19,99 USD</code></li>
+      <li><code>EUR 1.234,56</code></li>
+      <li><code>25 €</code></li>
+    </ul>
+    <p>This should not trigger a conversion: <code>19.99</code>.</p>
+    <script>
+      if (new URLSearchParams(location.search).has("auto")) {
+        addEventListener("load", () => {
+          const target = document.querySelector("code");
+          const range = document.createRange();
+          range.selectNodeContents(target);
+          const selection = getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+
+          setTimeout(() => {
+            const host = document.querySelector(
+              "[data-currency-converter-tooltip]"
+            );
+            const button = host?.shadowRoot?.querySelector("button");
+            const params = new URLSearchParams({
+              result: button?.textContent ?? "NO_TOOLTIP",
+              detail: button?.title ?? ""
+            });
+            fetch(`/diagnostic?${params}`, { mode: "no-cors" });
+          }, 2500);
+        });
+      }
+    </script>
+  </body>
+</html>

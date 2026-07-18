@@ -1,0 +1,25 @@
+{
+  "name": "konwerter-walut-firefox",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run typecheck && node scripts/build.mjs",
+    "build:watch": "node scripts/build.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint:extension": "npm run build && web-ext lint --source-dir dist",
+    "firefox": "web-ext run --source-dir dist",
+    "package": "npm run build && web-ext build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest",
+    "verify": "npm run test && npm run lint:extension"
+  },
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.4",
+    "esbuild": "^0.25.0",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0",
+    "web-ext": "^8.4.0"
+  }
+}
