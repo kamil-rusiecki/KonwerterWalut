@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Konwerter walut",
+  "version": "0.1.0",
+  "description": "Przelicza zaznaczone ceny w USD i EUR na PLN.",
+  "permissions": ["storage", "clipboardWrite"],
+  "host_permissions": ["https://api.nbp.pl/*"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "konwerter-walut@local",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}
