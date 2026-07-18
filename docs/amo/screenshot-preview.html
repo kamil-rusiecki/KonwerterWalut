@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Konwerter walut — AMO screenshot preview</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #172033;
+        background: #eef3f8;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        width: 1280px;
+        height: 800px;
+        margin: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 10% 0%, rgb(103 232 249 / 24%), transparent 32%),
+          linear-gradient(145deg, #f8fafc 0%, #e9eff7 100%);
+      }
+
+      header {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 56px;
+        border-bottom: 1px solid rgb(148 163 184 / 28%);
+        background: rgb(255 255 255 / 78%);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-weight: 750;
+        letter-spacing: -.02em;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #476079;
+        font-size: 14px;
+      }
+
+      .status::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgb(34 197 94 / 14%);
+      }
+
+      main {
+        height: 724px;
+        display: grid;
+        grid-template-columns: 1.35fr .65fr;
+        gap: 48px;
+        align-items: center;
+        padding: 54px 76px 66px;
+      }
+
+      .store-card {
+        height: 540px;
+        display: grid;
+        grid-template-columns: 46% 54%;
+        overflow: hidden;
+        border: 1px solid rgb(148 163 184 / 26%);
+        border-radius: 26px;
+        background: #fff;
+        box-shadow: 0 24px 60px rgb(29 44 69 / 16%);
+      }
+
+      .product-visual {
+        position: relative;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 50% 44%, #dff8fb 0 28%, transparent 29%),
+          linear-gradient(160deg, #f1f5f9, #e2e8f0);
+      }
+
+      .headphones {
+        position: relative;
+        width: 220px;
+        height: 240px;
+      }
+
+      .headband {
+        position: absolute;
+        left: 34px;
+        top: 16px;
+        width: 152px;
+        height: 164px;
+        border: 28px solid #162138;
+        border-bottom: 0;
+        border-radius: 90px 90px 0 0;
+      }
+
+      .ear {
+        position: absolute;
+        top: 142px;
+        width: 62px;
+        height: 88px;
+        border-radius: 26px;
+        background: linear-gradient(145deg, #24324e, #0f172a);
+        box-shadow: inset 0 0 0 7px rgb(255 255 255 / 7%), 0 14px 22px rgb(15 23 42 / 18%);
+      }
+
+      .ear.left { left: 9px; transform: rotate(-5deg); }
+      .ear.right { right: 9px; transform: rotate(5deg); }
+
+      .product-copy {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 54px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: #0891b2;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: #111827;
+        font-size: 39px;
+        line-height: 1.08;
+        letter-spacing: -.04em;
+      }
+
+      .description {
+        margin: 22px 0 34px;
+        color: #5d6b7d;
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      .price-wrap {
+        position: relative;
+        align-self: flex-start;
+        margin-top: 34px;
+      }
+
+      .selection-tooltip {
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 13px);
+        transform: translateX(-50%);
+        min-width: max-content;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #202124;
+        color: #fff;
+        box-shadow: 0 3px 12px rgb(0 0 0 / 28%);
+        font: 600 14px/1.25 system-ui, sans-serif;
+      }
+
+      .selection-tooltip::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        width: 10px;
+        height: 10px;
+        transform: translate(-50%, -5px) rotate(45deg);
+        background: #202124;
+      }
+
+      .selected-price {
+        display: inline-block;
+        padding: 1px 4px 3px;
+        border-radius: 3px;
+        background: #b9d7ff;
+        color: #0f172a;
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -.03em;
+      }
+
+      .callout {
+        max-width: 340px;
+      }
+
+      .callout h2 {
+        margin: 0 0 18px;
+        color: #0f172a;
+        font-size: 42px;
+        line-height: 1.08;
+        letter-spacing: -.045em;
+      }
+
+      .callout p {
+        margin: 0;
+        color: #53657a;
+        font-size: 18px;
+        line-height: 1.65;
+      }
+
+      .steps {
+        display: grid;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        color: #32465d;
+        font-size: 15px;
+        font-weight: 650;
+      }
+
+      .step span {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        background: #fff;
+        color: #0e7490;
+        box-shadow: 0 5px 14px rgb(29 44 69 / 10%);
+      }
+
+      .formats-card {
+        grid-column: 1 / -1;
+        height: 535px;
+        padding: 48px 56px;
+        border: 1px solid rgb(148 163 184 / 26%);
+        border-radius: 26px;
+        background: #fff;
+        box-shadow: 0 24px 60px rgb(29 44 69 / 14%);
+      }
+
+      .formats-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 36px;
+      }
+
+      .formats-heading h1 { font-size: 44px; }
+      .formats-heading p {
+        max-width: 450px;
+        margin: 0;
+        color: #64748b;
+        font-size: 17px;
+        line-height: 1.55;
+        text-align: right;
+      }
+
+      .format-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+
+      .format {
+        min-height: 180px;
+        padding: 24px;
+        border: 1px solid #dde6ef;
+        border-radius: 18px;
+        background: linear-gradient(160deg, #fff, #f8fafc);
+      }
+
+      .format strong {
+        display: block;
+        margin-bottom: 12px;
+        color: #0f172a;
+        font-size: 29px;
+        letter-spacing: -.03em;
+      }
+
+      .format small {
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .format.active {
+        position: relative;
+        border-color: #67e8f9;
+        background: #ecfeff;
+        box-shadow: inset 0 0 0 1px #a5f3fc;
+      }
+
+      .format.active::after {
+        content: "108,55 zł";
+        position: absolute;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #202124;
+        color: #fff;
+        font: 600 14px/1.25 system-ui, sans-serif;
+        white-space: nowrap;
+      }
+
+      body:not(.formats) .formats-card { display: none; }
+      body.formats main { display: block; padding: 64px 76px; }
+      body.formats .store-card,
+      body.formats .callout { display: none; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <img src="../../static/icons/icon.svg" alt="">
+        <span>Konwerter walut</span>
+      </div>
+      <div class="status">Kursy NBP z 17 lipca 2026</div>
+    </header>
+
+    <main>
+      <section class="store-card">
+        <div class="product-visual" aria-label="Czarne słuchawki">
+          <div class="headphones">
+            <div class="headband"></div>
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+          </div>
+        </div>
+        <div class="product-copy">
+          <p class="eyebrow">Darmowa dostawa</p>
+          <h1>Słuchawki bezprzewodowe</h1>
+          <p class="description">Lekka konstrukcja, aktywna redukcja hałasu i do 30 godzin słuchania.</p>
+          <div class="price-wrap">
+            <div class="selection-tooltip">75,86 zł</div>
+            <span class="selected-price">$19.99</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="callout">
+        <h2>Zaznacz cenę. Gotowe.</h2>
+        <p>Wartość w złotych pojawia się od razu nad zaznaczeniem, bez otwierania nowej karty.</p>
+        <div class="steps">
+          <div class="step"><span>1</span> Zaznacz pełną cenę</div>
+          <div class="step"><span>2</span> Odczytaj wynik w PLN</div>
+          <div class="step"><span>3</span> Kliknij, aby skopiować</div>
+        </div>
+      </aside>
+
+      <section class="formats-card">
+        <div class="formats-heading">
+          <h1>Popularne formaty cen</h1>
+          <p>Symbole i kody walut mogą występować przed albo po kwocie.</p>
+        </div>
+        <div class="format-grid">
+          <div class="format">
+            <strong>$19.99</strong>
+            <small>Symbol dolara i kropka dziesiętna</small>
+          </div>
+          <div class="format">
+            <strong>19,99 USD</strong>
+            <small>Kod waluty po kwocie</small>
+          </div>
+          <div class="format active">
+            <strong>25 €</strong>
+            <small>Symbol euro po kwocie</small>
+          </div>
+          <div class="format">
+            <strong>EUR 1.234,56</strong>
+            <small>Separator tysięcy i przecinek</small>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      if (new URLSearchParams(location.search).get("view") === "formats") {
+        document.body.classList.add("formats");
+      }
+    </script>
+  </body>
+</html>

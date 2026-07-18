@@ -2,6 +2,8 @@
 
 A local Firefox extension that converts selected USD or EUR prices to PLN. Exchange rates come from the latest available Table A published by the National Bank of Poland (NBP).
 
+Polish documentation: [README.pl.md](README.pl.md)
+
 ## Supported price formats
 
 - currency symbols and codes before or after the amount: `$19.99`, `19,99 USD`, `EUR 1.234,56`, `25 €`;
@@ -60,6 +62,19 @@ npm run package
 
 The generated `.zip` file is written to `web-ext-artifacts/`.
 
+To build both the installable add-on package and the reviewer source package:
+
+```bash
+npm run package:release
+```
+
+The release command produces:
+
+- `konwerter_walut-0.1.0.zip` for Mozilla Add-ons;
+- `konwerter_walut-0.1.0-sources.zip` with the readable source code and build instructions.
+
+See [SOURCE_CODE_REVIEW.md](SOURCE_CODE_REVIEW.md) for reproducible build and reviewer testing instructions.
+
 ## Development
 
 In the first terminal:
@@ -82,6 +97,8 @@ Selected text stays in the browser. The content script sends only the detected c
 
 Cached rates are considered fresh for 12 hours. If the network is temporarily unavailable, the extension can use the last successful response for up to seven days. When no usable rate is available, it displays `Brak kursu` ("Rate unavailable").
 
+The extension has no analytics, accounts, advertising, or remote executable code. See the full [privacy policy](PRIVACY.md).
+
 ## MVP limitations
 
 - PLN is the only target currency;
@@ -89,3 +106,7 @@ Cached rates are considered fresh for 12 hours. If the network is temporarily un
 - Firefox extensions cannot run on protected pages such as `about:*`, the built-in PDF viewer, or Mozilla Add-ons;
 - conversions use the average NBP rate and do not represent the transactional rate offered by a bank or card provider;
 - the extension UI is currently in Polish.
+
+## License
+
+Released under the [MIT License](LICENSE).

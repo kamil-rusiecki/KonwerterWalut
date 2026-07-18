@@ -3,6 +3,14 @@
   "name": "Konwerter walut",
   "version": "0.1.0",
   "description": "Przelicza zaznaczone ceny w USD i EUR na PLN.",
+  "author": "Kamil Rusiecki",
+  "homepage_url": "https://github.com/kamil-rusiecki/KonwerterWalut",
+  "icons": {
+    "32": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  },
   "permissions": ["storage", "clipboardWrite"],
   "host_permissions": ["https://api.nbp.pl/*"],
   "background": {
@@ -17,7 +25,7 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "konwerter-walut@local",
+      "id": "konwerter-walut@kamil-rusiecki.github.io",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
         "required": ["none"]
