@@ -12,6 +12,7 @@ const artifactName = `konwerter_walut-${version}-sources.zip`;
 const artifactPath = resolve(artifacts, artifactName);
 
 const sourcePaths = [
+  ".github",
   "docs",
   "scripts",
   "src",
@@ -24,6 +25,7 @@ const sourcePaths = [
   "PRIVACY.pl.md",
   "README.md",
   "README.pl.md",
+  "RELEASE_CHECKLIST.md",
   "SOURCE_CODE_REVIEW.md",
   "package-lock.json",
   "package.json",

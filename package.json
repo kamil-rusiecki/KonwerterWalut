@@ -9,12 +9,14 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:firefox": "npm run build && node scripts/test-firefox-runtime.mjs",
     "lint:extension": "npm run build && web-ext lint --source-dir dist",
     "firefox": "web-ext run --source-dir dist",
     "package": "npm run build && web-ext build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest",
     "package:source": "node scripts/package-source.mjs",
-    "package:release": "npm run verify && npm run package && npm run package:source",
-    "verify": "npm run test && npm run lint:extension"
+    "package:release": "npm run verify:ci && npm run package && npm run package:source",
+    "verify": "npm run test && npm run lint:extension",
+    "verify:ci": "npm run verify && node scripts/test-firefox-runtime.mjs"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^120.0.4",

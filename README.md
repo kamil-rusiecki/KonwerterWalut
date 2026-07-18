@@ -27,6 +27,14 @@ npm run verify
 
 The `verify` command runs the test suite, checks TypeScript types, builds the extension, and validates it with `web-ext lint`.
 
+To include the automated smoke test in a real headless Firefox instance:
+
+```bash
+npm run verify:ci
+```
+
+The runtime test serves `test-page.html` over a temporary local HTTP port, installs the built extension in a temporary Firefox profile, selects `$19.99`, and requires a valid PLN tooltip backed by an NBP rate. Set `FIREFOX_BINARY` when Firefox is not available in its default system location.
+
 ## Running in Firefox
 
 The simplest development workflow is:
@@ -74,6 +82,7 @@ The release command produces:
 - `konwerter_walut-0.1.0-sources.zip` with the readable source code and build instructions.
 
 See [SOURCE_CODE_REVIEW.md](SOURCE_CODE_REVIEW.md) for reproducible build and reviewer testing instructions.
+The complete pre-release procedure is documented in [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
 
 ## Development
 
