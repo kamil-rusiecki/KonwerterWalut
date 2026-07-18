@@ -12,6 +12,8 @@
     "lint:extension": "npm run build && web-ext lint --source-dir dist",
     "firefox": "web-ext run --source-dir dist",
     "package": "npm run build && web-ext build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest",
+    "package:source": "node scripts/package-source.mjs",
+    "package:release": "npm run verify && npm run package && npm run package:source",
     "verify": "npm run test && npm run lint:extension"
   },
   "devDependencies": {
