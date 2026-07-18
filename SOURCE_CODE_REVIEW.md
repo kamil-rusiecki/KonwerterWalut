@@ -21,6 +21,8 @@ npm run package
 
 `npm run verify` runs 39 automated tests, TypeScript type checking, an unminified esbuild bundle, and `web-ext lint`.
 
+The repository CI additionally runs `npm run verify:ci`, which launches the extension in a real headless Firefox instance and verifies an NBP-backed conversion. This runtime smoke test is not required to reproduce the submitted bundle.
+
 The build copies `static/` into `dist/` and bundles:
 
 - `src/background/index.ts` into `dist/background.js`;

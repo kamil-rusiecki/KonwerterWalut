@@ -34,17 +34,23 @@
           selection.removeAllRanges();
           selection.addRange(range);
 
-          setTimeout(() => {
+          const deadline = Date.now() + 15000;
+          const reportResult = () => {
             const host = document.querySelector(
               "[data-currency-converter-tooltip]"
             );
             const button = host?.shadowRoot?.querySelector("button");
+            if (!button && Date.now() < deadline) {
+              setTimeout(reportResult, 250);
+              return;
+            }
             const params = new URLSearchParams({
               result: button?.textContent ?? "NO_TOOLTIP",
               detail: button?.title ?? ""
             });
             fetch(`/diagnostic?${params}`, { mode: "no-cors" });
-          }, 2500);
+          };
+          setTimeout(reportResult, 250);
         });
       }
     </script>
